@@ -17,7 +17,7 @@ if ! command -v wget > /dev/null 2>&1; then
 fi
 
 echo "Clean up potential garbage that might otherwise get in the way..."
-wget -qO- https://raw.githubusercontent.com/T-vK/wyoming-satellite-termux/refs/heads/main/uninstall.sh | bash
+wget -qO- https://raw.githubusercontent.com/janstadt/wyoming-satellite-termux/refs/heads/main/uninstall.sh | bash
 
 echo "Ensure sox is available..."
 if ! command -v rec > /dev/null 2>&1; then
@@ -118,7 +118,7 @@ ifconfig
 
 echo "Setting up autostart..."
 mkdir -p ~/.termux/boot/
-wget -P ~/.termux/boot/ "https://raw.githubusercontent.com/T-vK/wyoming-satellite-termux/refs/heads/main/wyoming-satellite-android"
+wget -P ~/.termux/boot/ "https://raw.githubusercontent.com/janstadt/wyoming-satellite-termux/refs/heads/main/wyoming-satellite-android"
 chmod +x ~/.termux/boot/wyoming-satellite-android
 
 echo "Setting up widget shortcut..."
