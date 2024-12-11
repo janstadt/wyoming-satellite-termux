@@ -13,6 +13,11 @@ This project provides a simple way of setting up Wyoming Satellite and OpenWakeW
 Open Termux and run:
 
 ``` Bash
+pkg up && pkg install wget -y && bash <(wget -qO- https://raw.githubusercontent.com/janstadt/wyoming-satellite-termux/refs/heads/main/install.sh)
+```
+
+
+``` Bash
 (command -v wget > /dev/null 2>&1 || (echo "Installing wget..." && pkg install -y wget)) && bash <(wget -qO- https://raw.githubusercontent.com/janstadt/wyoming-satellite-termux/refs/heads/main/install.sh)
 
 ```
