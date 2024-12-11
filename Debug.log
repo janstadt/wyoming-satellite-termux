@@ -1,0 +1,29 @@
+Starting it now...
+Wed Dec 11 15:47:21 CST 2024
+Ensure sox is available...
+Enter wyoming-openwakeword directory...
+Enter wyoming-satellite directory...
+Ensure module-sles-source is loaded...
+17
+DEBUG:root:Namespace(uri='tcp://0.0.0.0:10400', models_dir=PosixPath('/data/data/com.termux/files/home/wyoming-openwakeword/wyoming_openwakeword/models'), custom_model_dir=[], preload_model=['ok_nabu'], threshold=0.5, trigger_level=1, output_dir=None, debug=True, log_format='%(levelname)s:%(name)s:%(message)s', debug_probability=False, version=False, model=[])
+DEBUG:root:Loading ok_nabu_v0.1 from /data/data/com.termux/files/home/wyoming-openwakeword/wyoming_openwakeword/models/ok_nabu_v0.1.tflite
+DEBUG:wyoming_openwakeword.handler:Started thread for ok_nabu_v0.1
+DEBUG:root:Loading /data/data/com.termux/files/home/wyoming-openwakeword/wyoming_openwakeword/models/melspectrogram.tflite
+DEBUG:root:Loading /data/data/com.termux/files/home/wyoming-openwakeword/wyoming_openwakeword/models/embedding_model.tflite
+INFO:root:Ready
+INFO: Initialized TensorFlow Lite runtime.
+DEBUG:root:Namespace(mic_uri=None, mic_command='rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', mic_command_rate=16000, mic_command_width=2, mic_command_channels=1, mic_command_samples_per_chunk=1024, mic_volume_multiplier=1.0, mic_noise_suppression=0, mic_auto_gain=0, mic_seconds_to_mute_after_awake_wav=0.5, mic_no_mute_during_awake_wav=False, mic_channel_index=None, snd_uri=None, snd_command='play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', snd_command_rate=22050, snd_command_width=2, snd_command_channels=1, snd_volume_multiplier=1.0, wake_uri='tcp://127.0.0.1:10400', wake_word_name=[['ok_nabu']], wake_command=None, wake_command_rate=16000, wake_command_width=2, wake_command_channels=1, wake_refractory_seconds=5.0, vad=False, vad_threshold=0.5, vad_trigger_level=1, vad_buffer_seconds=2, vad_wake_word_timeout=5.0, event_uri=None, startup_command=None, detect_command=None, detection_command=None, transcript_command=None, stt_start_command=None, stt_stop_command=None, synthesize_command=None, tts_start_command=None, tts_stop_command=None, tts_played_command=None, streaming_start_command=None, streaming_stop_command=None, error_command=None, connected_command=None, disconnected_command=None, timer_started_command=None, timer_updated_command=None, timer_cancelled_command=None, timer_finished_command=None, awake_wav='./sounds/awake.wav', done_wav='./sounds/done.wav', timer_finished_wav='./sounds/timer_finished.wav', timer_finished_wav_repeat=[5.0, 0.5], uri='tcp://0.0.0.0:10700', name='Android Satellite - Amazon KFTRPWI', area=None, no_zeroconf=False, zeroconf_name=None, zeroconf_host=None, debug_recording_dir=None, debug=True, log_format='%(levelname)s:%(name)s:%(message)s')
+INFO:root:Ready
+DEBUG:root:Detected IP: 192.168.1.197
+DEBUG:root:Zeroconf discovery enabled (name=930e0d071f44, host=None)
+DEBUG:root:Connecting to mic service: ['rec', '-r', '16000', '-c', '1', '-b', '16', '-e', 'signed-integer', '-t', 'raw', '--no-show-progress', '-']
+DEBUG:root:Connecting to snd service: ['play', '-r', '22050', '-c', '1', '-b', '16', '-e', 'signed-integer', '-t', 'raw', '--no-show-progress', '-']
+DEBUG:root:Connecting to wake service: tcp://127.0.0.1:10400
+INFO:root:Connected to services
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/./script/run", line 12, in <module>
+    subprocess.check_call([context.env_exe, "-m", "wyoming_satellite"] + sys.argv[1:])
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['/data/data/com.termux/files/home/wyoming-satellite/.venv/bin/python3', '-m', 'wyoming_satellite', '--name', 'Android Satellite - Amazon KFTRPWI', '--uri', 'tcp://0.0.0.0:10700', '--mic-command', 'rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', '--snd-command', 'play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', '--awake-wav', './sounds/awake.wav', '--done-wav', './sounds/done.wav', '--timer-finished-wav', './sounds/timer_finished.wav', '--timer-finished-wav-repeat', '5', '0.5', '--wake-uri', 'tcp://127.0.0.1:10400', '--wake-word-name', 'ok_nabu', '--debug']' died with <Signals.SIGSYS: 31>.
+~ $
