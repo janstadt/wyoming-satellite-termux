@@ -27,3 +27,969 @@ Traceback (most recent call last):
     raise CalledProcessError(retcode, cmd)
 subprocess.CalledProcessError: Command '['/data/data/com.termux/files/home/wyoming-satellite/.venv/bin/python3', '-m', 'wyoming_satellite', '--name', 'Android Satellite - Amazon KFTRPWI', '--uri', 'tcp://0.0.0.0:10700', '--mic-command', 'rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', '--snd-command', 'play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', '--awake-wav', './sounds/awake.wav', '--done-wav', './sounds/done.wav', '--timer-finished-wav', './sounds/timer_finished.wav', '--timer-finished-wav-repeat', '5', '0.5', '--wake-uri', 'tcp://127.0.0.1:10400', '--wake-word-name', 'ok_nabu', '--debug']' died with <Signals.SIGSYS: 31>.
 ~ $
+
+
+
+
+
+
+
+
+cache__  example_event_client.py  settings.py   vad.py
+~/wyoming-satellite/wyoming_satellite $ !nano __main__.py
+bash: !nano: event not found
+~/wyoming-satellite/wyoming_satellite $ nano
+~/wyoming-satellite/wyoming_satellite $ nano __main__.py
+~/wyoming-satellite/wyoming_satellite $ cd ..
+~/wyoming-satellite $ ls
+CHANGELOG.md        examples                            requirements_respeaker.txt
+Dockerfile          installer                           requirements_vad.txt
+LICENSE.md          mypy.ini                            script
+MANIFEST.in         pulseaudio-glib_17.0-2_aarch64.deb  setup.cfg
+README.md           pulseaudio_17.0-2_aarch64.deb       setup.py
+docker              pylintrc                            sounds
+docker-compose.yml  requirements.txt                    tests
+docs                requirements_audio_enhancement.txt  tox.ini
+etc                 requirements_dev.txt                wyoming_satellite
+~/wyoming-satellite $ pactl load-module module-sles-source && \
+strace -ff -o strace_output python3 ./script/run \
+  --name 'Android Satellite' \
+  --uri 'tcp://0.0.0.0:10700' \
+  --mic-command 'rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress - ' \
+  --snd-command ' play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -' \
+  --awake-wav ./sounds/awake.wav \
+  --done-wav ./sounds/done.wav \
+  --timer-finished-wav ./sounds/timer_finished.wav \
+  --timer-finished-wav-repeat 5 0.5 \
+  --debug
+17
+The program strace is not installed. Install it by executing:
+ pkg install strace
+~/wyoming-satellite $ pkg install strace
+No mirror or mirror group selected. You might want to select one by running 'termux-change-repo'
+Checking availability of current mirror:
+[*] https://mirror.accum.se/mirror/termux.dev/termux-main: ok
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  file libid3tag libmad libmp3lame libpng opusfile
+Use 'apt autoremove' to remove them.
+The following additional packages will be installed:
+  argp libdw libelf
+The following NEW packages will be installed:
+  argp libdw libelf strace
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 669 kB of archives.
+After this operation, 2929 kB of additional disk space will be used.
+Do you want to continue? [Y/n]
+Get:1 https://mirror.accum.se/mirror/termux.dev/termux-main stable/main aarch64 argp aarch64 1.5.0 [21.2 kB]
+Get:2 https://mirror.accum.se/mirror/termux.dev/termux-main stable/main aarch64 libelf aarch64 0.191 [47.8 kB]
+Get:3 https://mirror.accum.se/mirror/termux.dev/termux-main stable/main aarch64 libdw aarch64 0.191 [203 kB]
+Get:4 https://mirror.accum.se/mirror/termux.dev/termux-main stable/main aarch64 strace aarch64 6.12 [397 kB]
+Fetched 669 kB in 2s (367 kB/s)
+Selecting previously unselected package argp.
+(Reading database ... 23157 files and directories currently installed.)
+Preparing to unpack .../argp_1.5.0_aarch64.deb ...
+Unpacking argp (1.5.0) ...
+Selecting previously unselected package libelf.
+Preparing to unpack .../libelf_0.191_aarch64.deb ...
+Unpacking libelf (0.191) ...
+Selecting previously unselected package libdw.
+Preparing to unpack .../libdw_0.191_aarch64.deb ...
+Unpacking libdw (0.191) ...
+Selecting previously unselected package strace.
+Preparing to unpack .../strace_6.12_aarch64.deb ...
+Unpacking strace (6.12) ...
+Setting up argp (1.5.0) ...
+Setting up libelf (0.191) ...
+Setting up libdw (0.191) ...
+Setting up strace (6.12) ...
+~/wyoming-satellite $ pactl load-module module-sles-source && strace -ff -o strace_output python3 ./script/run   --name 'Android Satellite'   --uri 'tcp://0.0.0.0:10700'   --mic-command 'rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress - '   --snd-command ' play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -'   --awake-wav ./sounds/awake.wav   --done-wav ./sounds/done.wav   --timer-finished-wav ./sounds/timer_finished.wav   --timer-finished-wav-repeat 5 0.5   --debug
+18
+DEBUG:root:Namespace(mic_uri=None, mic_command='rec -r 16000 -c 1 -b 16 -e signed-integer -t raw --no-show-progress - ', mic_command_rate=16000, mic_command_width=2, mic_command_channels=1, mic_command_samples_per_chunk=1024, mic_volume_multiplier=1.0, mic_noise_suppression=0, mic_auto_gain=0, mic_seconds_to_mute_after_awake_wav=0.5, mic_no_mute_during_awake_wav=False, mic_channel_index=None, snd_uri=None, snd_command=' play -r 22050 -c 1 -b 16 -e signed-integer -t raw --no-show-progress -', snd_command_rate=22050, snd_command_width=2, snd_command_channels=1, snd_volume_multiplier=1.0, wake_uri=None, wake_word_name=[], wake_command=None, wake_command_rate=16000, wake_command_width=2, wake_command_channels=1, wake_refractory_seconds=5.0, vad=False, vad_threshold=0.5, vad_trigger_level=1, vad_buffer_seconds=2, vad_wake_word_timeout=5.0, event_uri=None, startup_command=None, detect_command=None, detection_command=None, transcript_command=None, stt_start_command=None, stt_stop_command=None, synthesize_command=None, tts_start_command=None, tts_stop_command=None, tts_played_command=None, streaming_start_command=None, streaming_stop_command=None, error_command=None, connected_command=None, disconnected_command=None, timer_started_command=None, timer_updated_command=None, timer_cancelled_command=None, timer_finished_command=None, awake_wav='./sounds/awake.wav', done_wav='./sounds/done.wav', timer_finished_wav='./sounds/timer_finished.wav', timer_finished_wav_repeat=[5.0, 0.5], uri='tcp://0.0.0.0:10700', name='Android Satellite', area=None, no_zeroconf=False, zeroconf_name=None, zeroconf_host=None, debug_recording_dir=None, debug=True, log_format='%(levelname)s:%(name)s:%(message)s')
+INFO:root:Ready
+DEBUG:root:Detected IP: 192.168.1.197
+DEBUG:root:Zeroconf discovery enabled (name=17d33fff600e, host=None)
+DEBUG:root:Connecting to mic service: ['rec', '-r', '16000', '-c', '1', '-b', '16', '-e', 'signed-integer', '-t', 'raw', '--no-show-progress', '-']
+DEBUG:root:Connecting to snd service: ['play', '-r', '22050', '-c', '1', '-b', '16', '-e', 'signed-integer', '-t', 'raw', '--no-show-progress', '-']
+INFO:root:Connected to services
+Current thread 0x0000007add6e2548 (most recent call first):
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 1435 in can_use_pidfd
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 1453 in _init_watcher
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 1478 in get_child_watcher
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/events.py", line 828 in get_child_watcher
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 200 in _make_subprocess_transport
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749 in subprocess_exec
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224 in create_subprocess_exec
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43 in connect
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478 in _mic_task_proc
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/events.py", line 88 in _run
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1992 in _run_once
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 640 in run_forever
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 673 in run_until_complete
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/runners.py", line 118 in run
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/runners.py", line 194 in run
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/__main__.py", line 489 in run
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/__main__.py", line 495 in <module>
+  File "<frozen runpy>", line 88 in _run_code
+  File "<frozen runpy>", line 198 in _run_module_as_main
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/wyoming-satellite/wyoming_satellite/satellite.py", line 478, in _mic_task_proc
+    await mic_client.connect()
+  File "/data/data/com.termux/files/home/wyoming-satellite/.venv/lib/python3.12/site-packages/wyoming/mic.py", line 43, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_events.py", line 1749, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 211, in _make_subprocess_transport
+    transp = _UnixSubprocessTransport(self, protocol, args, shell,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/base_subprocess.py", line 36, in __init__
+    self._start(args=args, shell=shell, stdin=stdin, stdout=stdout,
+  File "/data/data/com.termux/files/usr/lib/python3.12/asyncio/unix_events.py", line 820, in _start
+    self._proc = subprocess.Popen(
+                 ^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/data/data/com.termux/files/usr/lib/python3.12/subprocess.py", line 1953, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'rec'
+ERROR:root:Unexpected error in mic read task
